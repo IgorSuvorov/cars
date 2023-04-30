@@ -23,11 +23,8 @@ Users can add new listing:
 
 ![](images/addPost.png)
 
-If you click on image you can see the full info about the listing
 
-![](images/desc.png)
-
-User who posted the listing can edit it
+User who posted the listing can edit it:
 
 ![](images/edit.png)
 
