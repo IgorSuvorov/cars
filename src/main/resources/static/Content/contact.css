@@ -1,0 +1,26 @@
+#bigTitle{
+    color:#2b78e4;
+    border-bottom: solid black 2px;
+}
+#contactBody{
+    background-color:#eeeeee;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+#question{
+    border-bottom: solid black 2px;
+}
+label[for=name]{
+    padding-top: 20px;
+    padding-right:25px;
+}
+label[for=email]{
+    padding-right:25px;
+}
+label[for=subject]{
+    padding-right:10px;
+}
+#submit{
+    background-color:black;
+    color:#2b78e4;
+    margin-left:2%;
+}

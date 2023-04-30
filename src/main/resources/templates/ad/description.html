@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>AUTO</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+        <a class="navbar-brand" th:href="@{/index}">AUTO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <ul class="nav nav-pills">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" th:href="@{/index}">All postings <span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" th:href="@{/blog}">Blog</a>
+                        <a class="nav-item nav-link" th:href="@{/faq}">Faq</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-nav justify-content-end">
+            <ul class="nav nav-pills">
+                <div th:if="${user.name != null}">
+                    <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
+                        <span th:text="${user.name}"></span>
+                        <span> | Login</span>
+                    </a>
+                    <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
+                        <span th:text="${user.name}"></span>
+                        <span> | Logout</span>
+                    </a>
+                </div>
+            </ul>
+        </div>
+        <div class="navbar-nav justify-content-end">
+            <ul class="nav nav-pills">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <span>Theme</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun-o"></span></button>
+                        </li>
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon-o"></span></button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="row pt-1">
+        <div class="card" style="width: 100%">
+            <div class="card-header" style="display: flex">
+                <div class="col text-left">
+                    <h3><span th:text="${ad.name}"></span></h3>
+                    <div>
+                        <h8>Posted on:
+                            <span class="card-text" th:text="${#dates.format(ad.created, 'dd.MM.yyyy HH:mm')}"></span>
+                        </h8>
+                    </div>
+                </div>
+                <div class="col text-right">
+                    <h3><span th:text="${'$' + #numbers.formatDecimal(ad.price, 3, 'COMMA', 0, 'POINT')}"></span></h3>
+                </div>
+                <div>
+                    <h8>
+                        <span class="card-text" th:if="${ad.sold}" style="color: green">
+                            <span class="badge badge-secondary">Sold</span>
+                        </span>
+                        <span class="card-text" th:if="${!ad.sold}">
+                             <span class="badge badge-success">Selling</span>
+                        </span>
+                    </h8>
+                </div>
+            </div>
+            <div class="card-header" style="display: flex">
+                <div class="col text-left">
+                    <h8>Posted by:
+                        <span class="card-text" th:text="${ad.user.name}"></span>
+                    </h8>
+                </div>
+                <div class="col text-right">
+                    <h8><span th:text="'Phone: ' + ${ad.user.phone}"></span></h8>
+                </div>
+            </div>
+            <div class="card-body">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="col text-left">
+                                <p>
+                                    <b>Make:</b>
+                                    <span th:text="${ad.brand.name}"/>
+                                </p>
+                                <p>
+                                    <b>Body:</b>
+                                    <span th:text="${ad.body.name}"/>
+                                </p>
+                                <p>
+                                    <b>Transmission:</b>
+                                    <span class="card-text" th:text="${ad.transmission.name}"></span>
+                                </p>
+                                <p><b>Description: </b>
+                                    <span th:text="${ad.description}"></span>
+                                </p>
+                            </div>
+                        </td>
+                        <td class="col-4 text-right align-self-center">
+                            <img th:width="400" th:src="@{|/photoAd/${ad.id}|}">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/index}" class="btn btn-outline-info" role="button">Go back</a>
+                <span th:if="${user.name == ad.user.name}">
+                    <span th:if="${!ad.sold}">
+                        <a th:href="@{|/setSold/${ad.id}|}" class="btn btn-outline-success" role="button">Sold</a>
+                    </span>
+                    <a th:href="@{|/editAd/${ad.id}|}" class="btn btn-outline-warning" role="button">Edit</a>
+                    <a th:href="@{|/delete/${ad.id}|}" class="btn btn-outline-danger" role="button">Delete</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    (() => {
+        'use strict'
+        const storedTheme = localStorage.getItem('theme')
+
+        const getPreferredTheme = () => {
+            if (storedTheme) {
+                return storedTheme
+            }
+
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+
+        const setTheme = function (theme) {
+            document.documentElement.setAttribute('data-bs-theme', theme)
+        }
+
+        setTheme(getPreferredTheme())
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (storedTheme !== 'light' || storedTheme !== 'dark') {
+                setTheme(getPreferredTheme())
+            }
+        })
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-bs-theme-value]')
+                .forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const theme = toggle.getAttribute('data-bs-theme-value')
+                        localStorage.setItem('theme', theme)
+                        setTheme(theme)
+                    })
+                })
+        })
+    })()
+</script>
+</body>
+</html>

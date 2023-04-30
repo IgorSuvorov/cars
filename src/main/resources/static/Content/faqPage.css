@@ -1,0 +1,15 @@
+#bigTitle{
+    color:#2b78e4;
+    border-bottom: solid black 2px;
+}
+#smallTitle{
+    color:#2b78e4;
+    padding-bottom: 5%;
+}
+#faqBody{
+    background-color:#eeeeee;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+#question{
+    border-bottom: solid black 2px;
+}

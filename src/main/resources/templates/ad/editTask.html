@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>AUTO</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+        <a class="navbar-brand" th:href="@{/index}">AUTO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <ul class="nav nav-pills">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" th:href="@{/index}">All postings <span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" th:href="@{/blog}">Blog</a>
+                        <a class="nav-item nav-link" th:href="@{/faq}">Faq</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-nav justify-content-end">
+            <ul class="nav nav-pills">
+                <div th:if="${user.name != null}">
+                    <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
+                        <span th:text="${user.name}"></span>
+                        <span> | Login</span>
+                    </a>
+                    <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
+                        <span th:text="${user.name}"></span>
+                        <span> | Logout</span>
+                    </a>
+                </div>
+            </ul>
+        </div>
+        <div class="navbar-nav justify-content-end">
+            <ul class="nav nav-pills">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <span>Theme</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun-o"></span></button>
+                        </li>
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon-o"></span></button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="card shadow" style="width: 100%">
+        <div class="card-header">
+            Edit
+        </div>
+        <div class="card-body">
+            <form th:action="@{/editAd}" method="POST" th:object="${ad}" enctype="multipart/form-data">
+                <input type="hidden" name="id" th:field="*{id}"/>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="name" class="col">Name
+                                <input type="text" class="form-control" placeholder="Post" name="name"
+                                       id="name" th:field="*{name}" required>
+                            </label>
+                        </div>
+                        <div class="col-3">
+                            <label for="price" class="col">Цена(руб)
+                                <input type="number" class="form-control" placeholder="" name="price"
+                                       id="price" th:field="*{price}"required>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="brand.id" class="col">Make
+                                <select class="form-control" id="brand.id" name="brandID" required>
+                                    <option th:each="brand : ${brand}"
+                                            th:value="${brand.id}"
+                                            th:text="${brand.name}">
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label for="body.id" class="col">Body
+                                <select class="form-control" id="body.id" name="bodyID" required>
+                                    <option th:each="body : ${body}"
+                                            th:value="${body.id}"
+                                            th:text="${body.name}">
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label for="transmission.id" class="col">Transmission
+                                <select class="form-control" id="transmission.id" name="transmissionID" required>
+                                    <option th:each="transmission : ${transmission}"
+                                            th:value="${transmission.id}"
+                                            th:text="${transmission.name}">
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="description" class="col">Description
+                            <textarea class="form-control" placeholder="Description"
+                                      name="description"
+                                      id="description" rows="4" th:field="*{description}"></textarea>
+                        </label>
+                        <label for="file">Photo</label>
+                        <input type="file" class="form-control" name="file" id="file">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary shadow mt-3">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    (() => {
+        'use strict'
+        const storedTheme = localStorage.getItem('theme')
+
+        const getPreferredTheme = () => {
+            if (storedTheme) {
+                return storedTheme
+            }
+
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+
+        const setTheme = function (theme) {
+            document.documentElement.setAttribute('data-bs-theme', theme)
+        }
+
+        setTheme(getPreferredTheme())
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (storedTheme !== 'light' || storedTheme !== 'dark') {
+                setTheme(getPreferredTheme())
+            }
+        })
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-bs-theme-value]')
+                .forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const theme = toggle.getAttribute('data-bs-theme-value')
+                        localStorage.setItem('theme', theme)
+                        setTheme(theme)
+                    })
+                })
+        })
+    })()
+</script>
+</body>
+</html>

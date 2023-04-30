@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
+    <script src="Scripts/jquery-3.6.3.min.js"></script>
+
+    <link href="Content/bootstrap.css" rel="stylesheet">
+    <link href="Content/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <link href="css/styles.css" rel="stylesheet" />
+
+
+    <title>AUTO</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+        <a class="navbar-brand" th:href="@{/index}">AUTO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" th:href="@{/index}">All postings</a>
+                <a class="nav-item nav-link" th:href="@{/blog}">Blog</a>
+                <a class="nav-item nav-link" th:href="@{/faq}">Faq<span class="sr-only">(current)</span></a>
+            </div>
+        </div>
+        <div class="navbar-nav justify-content-end">
+            <ul class="nav nav-pills">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <span>Theme</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun-o"></span></button>
+                        </li>
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon-o"></span></button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Main Content-->
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="post.html">
+                        <h2 class="post-title">Who are we?</h2>
+                    </a>
+
+                </div>
+                <!-- Divider-->
+                <hr class="my-4" />
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="post.html"><h2 class="post-title">How to purchase?</h2></a>
+
+                </div>
+                <!-- Divider-->
+                <hr class="my-4" />
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="post.html">
+                        <h2 class="post-title">How to post an ad?</h2>
+                    </a>
+
+                </div>
+                <!-- Divider-->
+                <hr class="my-4" />
+                <!-- Pager-->
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    (() => {
+        'use strict'
+        const storedTheme = localStorage.getItem('theme')
+
+        const getPreferredTheme = () => {
+            if (storedTheme) {
+                return storedTheme
+            }
+
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+
+        const setTheme = function (theme) {
+            document.documentElement.setAttribute('data-bs-theme', theme)
+        }
+
+        setTheme(getPreferredTheme())
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (storedTheme !== 'light' || storedTheme !== 'dark') {
+                setTheme(getPreferredTheme())
+            }
+        })
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-bs-theme-value]')
+                .forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const theme = toggle.getAttribute('data-bs-theme-value')
+                        localStorage.setItem('theme', theme)
+                        setTheme(theme)
+                    })
+                })
+        })
+    })()
+</script>
+</body>
+</html>
