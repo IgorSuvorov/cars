@@ -6,7 +6,7 @@
 Web-app for posting car sales listings.
 
 #### Technologies used
-> Java, Spring boot, Maven, PostgreSQL, Hibernate, HQL, JS, HTML, BOOTSTRAP, JQuery, CSS
+> Java, Spring boot, Maven, PostgreSQL, Hibernate, HQL, JS, HTML, BOOTSTRAP, JQuery, CSS, Thymeleaf
 
 ## Usage
 
