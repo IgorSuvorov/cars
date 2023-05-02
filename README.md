@@ -19,7 +19,7 @@ Dark theme is available:
 ![](images/dark.png)
 
 
-Users can add new listing:
+Users can add new listings:
 
 ![](images/addPost.png)
 
